@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void fft(double complex*, int);
-void ifft(double complex*, int);
+void fft(double complex *, int);
+void ifft(double complex *, int);
 
 int main(void) {
     int n;
     scanf("%d", &n);
-    double complex* x = malloc(n * sizeof(double complex));
+    double complex *x = malloc(n * sizeof(double complex));
 
     for (int i = 0; i < n; i++) {
         double re;
@@ -33,13 +33,13 @@ int main(void) {
     return 0;
 }
 
-void fft(double complex* x, int n) {
+void fft(double complex *x, int n) {
     if (n == 1) {
         return;
     }
 
-    double complex* e = malloc(n / 2 * sizeof(double complex));
-    double complex* o = malloc(n / 2 * sizeof(double complex));
+    double complex *e = malloc(n / 2 * sizeof(double complex));
+    double complex *o = malloc(n / 2 * sizeof(double complex));
 
     for (int i = 0; i < n / 2; i++) {
         e[i] = x[2 * i];
@@ -61,13 +61,13 @@ void fft(double complex* x, int n) {
     return;
 }
 
-void ifft(double complex* x, int n) {
+void ifft(double complex *x, int n) {
     if (n == 1) {
         return;
     }
 
-    double complex* e = malloc(n / 2 * sizeof(double complex));
-    double complex* o = malloc(n / 2 * sizeof(double complex));
+    double complex *e = malloc(n / 2 * sizeof(double complex));
+    double complex *o = malloc(n / 2 * sizeof(double complex));
 
     for (int i = 0; i < n / 2; i++) {
         e[i] = x[2 * i];

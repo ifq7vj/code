@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void merge(double*, int);
+void merge(double *, int);
 
 int main(void) {
     int n;
     scanf("%d", &n);
-    double* x = malloc(n * sizeof(double));
+    double *x = malloc(n * sizeof(double));
 
     for (int i = 0; i < n; i++) {
         scanf("%lf", &x[i]);
@@ -21,7 +21,7 @@ int main(void) {
     return 0;
 }
 
-void merge(double* x, int n) {
+void merge(double *x, int n) {
     if (n == 1) {
         return;
     }
@@ -29,8 +29,8 @@ void merge(double* x, int n) {
     int n1 = n >> 1;
     int n2 = n - n1;
 
-    double* x1 = malloc(n1 * sizeof(double));
-    double* x2 = malloc(n2 * sizeof(double));
+    double *x1 = malloc(n1 * sizeof(double));
+    double *x2 = malloc(n2 * sizeof(double));
 
     for (int i = 0; i < n1; i++) {
         x1[i] = x[i];

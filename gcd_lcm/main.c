@@ -7,8 +7,7 @@ int gcd(int, int);
 int lcm(int, int);
 
 int main(void) {
-    int a;
-    int b;
+    int a, b;
     scanf("%d%d", &a, &b);
     printf("GCD(%d, %d) = %d\n", a, b, gcd(a, b));
     printf("LCM(%d, %d) = %d\n", a, b, lcm(a, b));

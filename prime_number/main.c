@@ -3,12 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void prime(int*, int);
+void prime(int *, int);
 
 int main(void) {
     int n;
     scanf("%d", &n);
-    int* p = malloc(n * sizeof(int));
+    int *p = malloc(n * sizeof(int));
     prime(p, n);
 
     for (int i = 0; i < n; i++) {
@@ -18,7 +18,7 @@ int main(void) {
     return 0;
 }
 
-void prime(int* p, int n) {
+void prime(int *p, int n) {
     p[0] = 2;
     p[1] = 3;
 
