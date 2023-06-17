@@ -1,8 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-int _gcd(int, int);
-
 int gcd(int, int);
 int lcm(int, int);
 
@@ -14,7 +12,7 @@ int main(void) {
     return 0;
 }
 
-int _gcd(int a, int b) {
+static int euclid(int a, int b) {
     if (a < b) while (true) {
         if (!a) return b; b %= a;
         if (!b) return a; a %= b;
@@ -27,13 +25,13 @@ int _gcd(int a, int b) {
 int gcd(int a, int b) {
     a = a < 0? -a: a;
     b = b < 0? -b: b;
-    int g = _gcd(a, b);
+    int g = euclid(a, b);
     return g;
 }
 
 int lcm(int a, int b) {
     a = a < 0? -a: a;
     b = b < 0? -b: b;
-    int l = a || b? a / _gcd(a, b) * b: 0;
+    int l = a || b? a / euclid(a, b) * b: 0;
     return l;
 }
