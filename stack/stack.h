@@ -4,13 +4,13 @@
 typedef struct stack_t stack_t;
 
 struct stack_t {
-    void *ptr;
+    void *data;
     stack_t *next;
 };
 
-stack_t *stack_new(void);
-void stack_delete(stack_t *stack);
-void stack_push(stack_t *stack, void *ptr);
-void *stack_pop(stack_t *stack);
+stack_t *stack_create(void);
+void stack_destroy(stack_t *);
+void stack_push(stack_t *, void *);
+void *stack_pop(stack_t *);
 
 #endif

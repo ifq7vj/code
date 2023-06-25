@@ -1,19 +1,19 @@
 #include <stdlib.h>
 #include "stack.h"
 
-stack_t *stack_new(void) {
+stack_t *stack_create(void) {
     stack_t *stack = malloc(sizeof(stack_t));
     return stack;
 }
 
-void stack_delete(stack_t *stack) {
+void stack_destroy(stack_t *stack) {
     free(stack);
     return;
 }
 
-void stack_push(stack_t *stack, void *ptr) {
+void stack_push(stack_t *stack, void *data) {
     stack_t *node = malloc(sizeof(stack_t));
-    node->ptr = ptr;
+    node->data = data;
     node->next = stack->next;
     stack->next = node;
     return;
@@ -21,8 +21,8 @@ void stack_push(stack_t *stack, void *ptr) {
 
 void *stack_pop(stack_t *stack) {
     stack_t *node = stack->next;
-    void *ptr = node->ptr;
+    void *data = node->data;
     stack->next = node->next;
     free(node);
-    return ptr;
+    return data;
 }
