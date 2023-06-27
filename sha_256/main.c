@@ -19,7 +19,7 @@ int main(void) {
         register int c = getchar();
         register uint8_t x = '0' <= c && c <= '9'? c - '0':
                              'a' <= c && c <= 'f'? c - 'a' + 0x0a: 0x00;
-        N |= (uint64_t)x << n;
+        N = N | (uint64_t)x << n;
     }
 
     getchar();
@@ -36,7 +36,7 @@ int main(void) {
                 register int c = getchar();
                 register uint8_t x = '0' <= c && c <= '9'? c - '0':
                                      'a' <= c && c <= 'f'? c - 'a' + 0x0a: 0x00;
-                M[t] |= (uint32_t)x << n;
+                M[t] = M[t] | (uint32_t)x << n;
             }
         }
 
