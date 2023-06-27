@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 int main(int argc, char **argv) {
     if (argc != 3) {
@@ -15,57 +16,47 @@ int main(int argc, char **argv) {
     fprintf(ofp, "char *ptr = array;\n");
 
     while (ptr != EOF) {
-        if (ptr == '>' || ptr == '<') {
-            int count = 0;
+        int cnt = 0;
 
-            while (ptr != EOF && ptr != '+' && ptr != '-' && ptr != '.' && ptr != ',' && ptr != '[' && ptr != ']') {
-                if (ptr == '>') count++;
-                if (ptr == '<') count--;
+        switch (ptr) {
+        case '>':
+        case '<':
+            do {
+                cnt += ptr == '>'? 1: ptr == '<'? -1: 0;
                 ptr = fgetc(sfp);
-            }
+            } while (ptr != EOF && !strchr("+-.,[]", ptr));
 
-            fprintf(ofp, "ptr %c= %d;\n", count < 0? '-': '+', count < 0? -count: count);
-            continue;
-        }
-
-        if (ptr == '+' || ptr == '-') {
-            int count = 0;
-
-            while (ptr != EOF && ptr != '>' && ptr != '<' && ptr != '.' && ptr != ',' && ptr != '[' && ptr != ']') {
-                if (ptr == '+') count++;
-                if (ptr == '-') count--;
+            fprintf(ofp, "ptr += %d;\n", cnt);
+            break;
+        case '+':
+        case '-':
+            do {
+                cnt += ptr == '+'? 1: ptr == '-'? -1: 0;
                 ptr = fgetc(sfp);
-            }
+            } while (ptr != EOF && !strchr("><.,[]", ptr));
 
-            fprintf(ofp, "*ptr %c= %d;\n", count < 0? '-': '+', count < 0? -count: count);
-            continue;
-        }
-
-        if (ptr == '.') {
-            ptr = fgetc(sfp);
+            fprintf(ofp, "*ptr += %d;\n", cnt);
+            break;
+        case '.':
             fprintf(ofp, "putchar(*ptr);\n");
-            continue;
-        }
-
-        if (ptr == ',') {
             ptr = fgetc(sfp);
+            break;
+        case ',':
             fprintf(ofp, "*ptr = getchar();\n");
-            continue;
-        }
-
-        if (ptr == '[') {
             ptr = fgetc(sfp);
+            break;
+        case '[':
             fprintf(ofp, "while (*ptr) {\n");
-            continue;
-        }
-
-        if (ptr == ']') {
             ptr = fgetc(sfp);
+            break;
+        case ']':
             fprintf(ofp, "}\n");
-            continue;
+            ptr = fgetc(sfp);
+            break;
+        default:
+            ptr = fgetc(sfp);
+            break;
         }
-
-        ptr = fgetc(sfp);
     }
 
     fprintf(ofp, "return 0;\n");
