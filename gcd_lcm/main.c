@@ -12,26 +12,30 @@ int main(void) {
     return 0;
 }
 
-static int euclid(int a, int b) {
-    if (a < b) while (true) {
-        if (!a) return b; b %= a;
-        if (!b) return a; a %= b;
-    } else while (true) {
-        if (!b) return a; a %= b;
-        if (!a) return b; b %= a;
-    }
-}
+int gcd(int, int);
+int lcm(int, int);
+static int impl(int, int);
 
 int gcd(int a, int b) {
     a = a < 0? -a: a;
     b = b < 0? -b: b;
-    int g = euclid(a, b);
+    int g = impl(a, b);
     return g;
 }
 
 int lcm(int a, int b) {
     a = a < 0? -a: a;
     b = b < 0? -b: b;
-    int l = a || b? a / euclid(a, b) * b: 0;
+    int l = a || b? a / impl(a, b) * b: 0;
     return l;
+}
+
+int impl(int a, int b) {
+    if (a < b) do {
+        if (!a) return b; b %= a;
+        if (!b) return a; a %= b;
+    } while (true); else do {
+        if (!b) return a; a %= b;
+        if (!a) return b; b %= a;
+    } while (true);
 }

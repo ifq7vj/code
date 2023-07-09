@@ -1,15 +1,14 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-int ptr;
-
 int expr(void);    // expr = trem ("+" trem | "-" trem)*
 int trem(void);    // trem = unary ("*" unary | "/" unary)*
 int unary(void);   // unary = ("+" | "-")? factor
 int factor(void);  // factor = number | "(" expr ")"
-
 bool consume(int);
 int number(void);
+
+int ptr;
 
 int main(void) {
     ptr = getchar();
@@ -20,7 +19,6 @@ int main(void) {
 
 int expr(void) {
     int num = trem();
-
     while (true) {
         if (consume('+')) {
             num += trem();
@@ -34,7 +32,6 @@ int expr(void) {
 
 int trem(void) {
     int num = unary();
-
     while (true) {
         if (consume('*')) {
             num *= unary();
@@ -62,7 +59,6 @@ int factor(void) {
         consume(')');
         return num;
     }
-
     return number();
 }
 
@@ -70,7 +66,6 @@ bool consume(int op) {
     while (ptr == ' ') {
         ptr = getchar();
     }
-
     if (ptr == op) {
         ptr = getchar();
         return true;
@@ -83,13 +78,10 @@ int number(void) {
     while (ptr == ' ') {
         ptr = getchar();
     }
-
     int num = 0;
-
     while ('0' <= ptr && ptr <= '9') {
         num = num * 10 + (ptr - '0');
         ptr = getchar();
     }
-
     return num;
 }

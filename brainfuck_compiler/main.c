@@ -6,7 +6,6 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Usage: <compiler> <source> <object>\n");
         return 1;
     }
-
     FILE *sfp = fopen(argv[1], "r");
     FILE *ofp = fopen(argv[2], "w");
     int ptr = fgetc(sfp);
@@ -14,10 +13,8 @@ int main(int argc, char **argv) {
     fprintf(ofp, "int main(void) {\n");
     fprintf(ofp, "char array[256];\n");
     fprintf(ofp, "char *ptr = array;\n");
-
     while (ptr != EOF) {
         int cnt = 0;
-
         switch (ptr) {
         case '>':
         case '<':
@@ -25,7 +22,6 @@ int main(int argc, char **argv) {
                 cnt += ptr == '>'? 1: ptr == '<'? -1: 0;
                 ptr = fgetc(sfp);
             } while (ptr != EOF && !strchr("+-.,[]", ptr));
-
             fprintf(ofp, "ptr += %d;\n", cnt);
             break;
         case '+':
@@ -34,7 +30,6 @@ int main(int argc, char **argv) {
                 cnt += ptr == '+'? 1: ptr == '-'? -1: 0;
                 ptr = fgetc(sfp);
             } while (ptr != EOF && !strchr("><.,[]", ptr));
-
             fprintf(ofp, "*ptr += %d;\n", cnt);
             break;
         case '.':
@@ -58,7 +53,6 @@ int main(int argc, char **argv) {
             break;
         }
     }
-
     fprintf(ofp, "return 0;\n");
     fprintf(ofp, "}\n");
     return 0;
